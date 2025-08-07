@@ -260,6 +260,11 @@ function saveToGoogleSheets(data) {
         'Overall Average Rating',
         'Core Average Rating',
         'Practical Average Rating',
+        'Satisfaction Level',
+        'Recommendation Type',
+        'Strongest Aspect',
+        'Improvement Areas',
+        'Participant Type',
         'Improvements',
         'Additional Comments',
         'Certificate Generated',
@@ -275,7 +280,7 @@ function saveToGoogleSheets(data) {
       headerRange.setFontWeight('bold');
     }
     
-    // Calculate different types of average ratings
+    // Calculate different types of average ratings with detailed analytics
     const coreRatings = [
       parseInt(data.contentRating),
       parseInt(data.instructorRating),
@@ -295,6 +300,13 @@ function saveToGoogleSheets(data) {
     const overallAverageRating = (allRatings.reduce((a, b) => a + b, 0) / allRatings.length).toFixed(2);
     const coreAverageRating = (coreRatings.reduce((a, b) => a + b, 0) / coreRatings.length).toFixed(2);
     const practicalAverageRating = (practicalRatings.reduce((a, b) => a + b, 0) / practicalRatings.length).toFixed(2);
+    
+    // Advanced analytics
+    const satisfaction = overallAverageRating >= 4 ? 'High' : overallAverageRating >= 3 ? 'Medium' : 'Low';
+    const recommendationLevel = parseInt(data.recommendRating) >= 4 ? 'Promoter' : parseInt(data.recommendRating) >= 3 ? 'Passive' : 'Detractor';
+    const strongestAspect = getStrongestAspect(data);
+    const improvementAreas = getImprovementAreas(data);
+    const participantType = classifyParticipant(data);
     
     // Prepare row data
     const rowData = [
@@ -316,6 +328,11 @@ function saveToGoogleSheets(data) {
       overallAverageRating,
       coreAverageRating,
       practicalAverageRating,
+      satisfaction,
+      recommendationLevel,
+      strongestAspect,
+      improvementAreas,
+      participantType,
       data.improvements,
       data.additionalComments,
       'Pending',
@@ -944,6 +961,135 @@ function testEmailOnly() {
   }
 }
 
+
+// Advanced Analytics Helper Functions
+function getStrongestAspect(data) {
+  const aspects = {
+    'Content': parseInt(data.contentRating),
+    'Instructor': parseInt(data.instructorRating),
+    'Duration': parseInt(data.durationRating),
+    'Practical': parseInt(data.practicalRating),
+    'Tools': parseInt(data.toolsRating),
+    'Practical Use': parseInt(data.practicalUseRating),
+    'Group Size': parseInt(data.groupSizeRating)
+  };
+  
+  let maxRating = 0;
+  let strongestAspect = 'N/A';
+  
+  for (const [aspect, rating] of Object.entries(aspects)) {
+    if (rating > maxRating) {
+      maxRating = rating;
+      strongestAspect = aspect;
+    }
+  }
+  
+  return `${strongestAspect} (${maxRating}/5)`;
+}
+
+function getImprovementAreas(data) {
+  const aspects = {
+    'Content': parseInt(data.contentRating),
+    'Instructor': parseInt(data.instructorRating),
+    'Duration': parseInt(data.durationRating),
+    'Practical': parseInt(data.practicalRating),
+    'Tools': parseInt(data.toolsRating),
+    'Practical Use': parseInt(data.practicalUseRating),
+    'Group Size': parseInt(data.groupSizeRating)
+  };
+  
+  const lowRatedAspects = [];
+  for (const [aspect, rating] of Object.entries(aspects)) {
+    if (rating <= 3) {
+      lowRatedAspects.push(`${aspect} (${rating}/5)`);
+    }
+  }
+  
+  return lowRatedAspects.length > 0 ? lowRatedAspects.join(', ') : 'None identified';
+}
+
+function classifyParticipant(data) {
+  const overallRating = (
+    parseInt(data.contentRating) + 
+    parseInt(data.instructorRating) + 
+    parseInt(data.durationRating) + 
+    parseInt(data.recommendRating) +
+    parseInt(data.practicalRating) + 
+    parseInt(data.toolsRating) + 
+    parseInt(data.practicalUseRating) + 
+    parseInt(data.groupSizeRating)
+  ) / 8;
+  
+  const hasImprovements = data.improvements && data.improvements.trim().length > 0;
+  const hasComments = data.additionalComments && data.additionalComments.trim().length > 0;
+  
+  if (overallRating >= 4.5) {
+    return 'Highly Satisfied';
+  } else if (overallRating >= 4.0) {
+    return hasComments ? 'Engaged Learner' : 'Satisfied';
+  } else if (overallRating >= 3.0) {
+    return hasImprovements ? 'Constructive Critic' : 'Neutral';
+  } else {
+    return hasImprovements ? 'Detailed Critic' : 'Dissatisfied';
+  }
+}
+
+// Generate detailed analytics report
+function generateAnalyticsReport() {
+  try {
+    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length <= 1) {
+      return { success: false, message: 'No data available for analysis' };
+    }
+    
+    const headers = data[0];
+    const responses = data.slice(1);
+    
+    // Calculate overall statistics
+    const stats = {
+      totalResponses: responses.length,
+      averageOverallRating: 0,
+      satisfactionDistribution: { High: 0, Medium: 0, Low: 0 },
+      recommendationDistribution: { Promoter: 0, Passive: 0, Detractor: 0 },
+      gradeDistribution: {},
+      topStrengths: {},
+      commonImprovements: {},
+      participantTypes: {}
+    };
+    
+    responses.forEach(row => {
+      // Overall rating
+      const overallRating = parseFloat(row[headers.indexOf('Overall Average Rating')]) || 0;
+      stats.averageOverallRating += overallRating;
+      
+      // Satisfaction level
+      const satisfaction = row[headers.indexOf('Satisfaction Level')] || 'Medium';
+      stats.satisfactionDistribution[satisfaction] = (stats.satisfactionDistribution[satisfaction] || 0) + 1;
+      
+      // Recommendation type
+      const recType = row[headers.indexOf('Recommendation Type')] || 'Passive';
+      stats.recommendationDistribution[recType] = (stats.recommendationDistribution[recType] || 0) + 1;
+      
+      // Grade distribution
+      const grade = row[headers.indexOf('Grade Level')] || 'Unknown';
+      stats.gradeDistribution[grade] = (stats.gradeDistribution[grade] || 0) + 1;
+      
+      // Participant types
+      const partType = row[headers.indexOf('Participant Type')] || 'Unknown';
+      stats.participantTypes[partType] = (stats.participantTypes[partType] || 0) + 1;
+    });
+    
+    stats.averageOverallRating = (stats.averageOverallRating / responses.length).toFixed(2);
+    
+    return { success: true, stats: stats };
+    
+  } catch (error) {
+    console.error('Error generating analytics:', error);
+    return { success: false, error: error.toString() };
+  }
+}
 
 // Test function (for debugging)
 function testFormSubmission() {

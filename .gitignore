@@ -1,0 +1,31 @@
+# Firebase Service Account Keys (Security)
+*.json
+certificate-imageprocessing-firebase-adminsdk-*.json
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
