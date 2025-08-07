@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบประเมินหลักสูตร Image Processing</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-icon">
+                <i class="fas fa-camera"></i>
+                <i class="fas fa-microchip"></i>
+                <i class="fas fa-eye"></i>
+            </div>
+            <h1>แบบประเมินหลักสูตร Image Processing</h1>
+            <p class="subtitle">Workshop: Color Segmentation & Computer Vision</p>
+            <p>กรุณากรอกข้อมูลและประเมินหลักสูตรเพื่อรับใบประกาศนียบัตร</p>
+        </header>
+
+        <form id="evaluationForm" class="evaluation-form">
+            <div class="personal-info section">
+                <div class="section-header">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>ข้อมูลส่วนตัว</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="firstName">ชื่อ (ภาษาอังกฤษ) *</label>
+                    <input type="text" id="firstName" name="firstName" required 
+                           placeholder="First Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">นามสกุล (ภาษาอังกฤษ) *</label>
+                    <input type="text" id="lastName" name="lastName" required 
+                           placeholder="Last Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">อีเมล *</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="gradeLevel">ระดับชั้นเรียน *</label>
+                    <div class="select-wrapper">
+                        <select id="gradeLevel" name="gradeLevel" required>
+                            <option value="">เลือกระดับชั้นเรียน</option>
+                            <option value="M1">มัธยมศึกษาปีที่ 1 (M1)</option>
+                            <option value="M2">มัธยมศึกษาปีที่ 2 (M2)</option>
+                            <option value="M3">มัธยมศึกษาปีที่ 3 (M3)</option>
+                            <option value="M4">มัธยมศึกษาปีที่ 4 (M4)</option>
+                            <option value="M5">มัธยมศึกษาปีที่ 5 (M5)</option>
+                            <option value="M6">มัธยมศึกษาปีที่ 6 (M6)</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="evaluation-section section">
+                <div class="section-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>การประเมินหลักสูตร</h2>
+                </div>
+                
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-book-open"></i>
+                        <label>1. ความพึงพอใจต่อเนื้อหาหลักสูตร (Content Quality) *</label>
+                    </div>
+                    <p class="question-desc">ประเมินความครบถ้วน ความชัดเจน และความเข้าใจง่ายของเนื้อหา</p>
+                    <div class="rating-group">
+                        <input type="radio" id="content5" name="contentRating" value="5" required>
+                        <label for="content5">มากที่สุด (5)</label>
+                        <input type="radio" id="content4" name="contentRating" value="4">
+                        <label for="content4">มาก (4)</label>
+                        <input type="radio" id="content3" name="contentRating" value="3">
+                        <label for="content3">ปานกลาง (3)</label>
+                        <input type="radio" id="content2" name="contentRating" value="2">
+                        <label for="content2">น้อย (2)</label>
+                        <input type="radio" id="content1" name="contentRating" value="1">
+                        <label for="content1">น้อยที่สุด (1)</label>
+                    </div>
+                </div>
+
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <label>2. ความพึงพอใจต่อผู้สอน (Instructor Performance) *</label>
+                    </div>
+                    <p class="question-desc">ประเมินความเชี่ยวชาญ การถ่ายทอดความรู้ และการตอบคำถาม</p>
+                    <div class="rating-group">
+                        <input type="radio" id="instructor5" name="instructorRating" value="5" required>
+                        <label for="instructor5">มากที่สุด (5)</label>
+                        <input type="radio" id="instructor4" name="instructorRating" value="4">
+                        <label for="instructor4">มาก (4)</label>
+                        <input type="radio" id="instructor3" name="instructorRating" value="3">
+                        <label for="instructor3">ปานกลาง (3)</label>
+                        <input type="radio" id="instructor2" name="instructorRating" value="2">
+                        <label for="instructor2">น้อย (2)</label>
+                        <input type="radio" id="instructor1" name="instructorRating" value="1">
+                        <label for="instructor1">น้อยที่สุด (1)</label>
+                    </div>
+                </div>
+
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-clock"></i>
+                        <label>3. ความเหมาะสมของระยะเวลาการเรียน (Duration) *</label>
+                    </div>
+                    <p class="question-desc">ประเมินความเหมาะสมของจำนวนชั่วโมงและการจัดเวลา</p>
+                    <div class="rating-group">
+                        <input type="radio" id="duration5" name="durationRating" value="5" required>
+                        <label for="duration5">เหมาะสมมาก (5)</label>
+                        <input type="radio" id="duration4" name="durationRating" value="4">
+                        <label for="duration4">เหมาะสม (4)</label>
+                        <input type="radio" id="duration3" name="durationRating" value="3">
+                        <label for="duration3">ปานกลาง (3)</label>
+                        <input type="radio" id="duration2" name="durationRating" value="2">
+                        <label for="duration2">ไม่เหมาะสม (2)</label>
+                        <input type="radio" id="duration1" name="durationRating" value="1">
+                        <label for="duration1">ไม่เหมาะสมมาก (1)</label>
+                    </div>
+                </div>
+
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-thumbs-up"></i>
+                        <label>4. โอกาสที่จะแนะนำหลักสูตรนี้ให้ผู้อื่น (Recommendation) *</label>
+                    </div>
+                    <p class="question-desc">ประเมินโอกาสที่จะแนะนำหลักสูตรนี้ให้กับเพื่อนหรือเพื่อนร่วมงาน</p>
+                    <div class="rating-group">
+                        <input type="radio" id="recommend5" name="recommendRating" value="5" required>
+                        <label for="recommend5">แนะนำอย่างยิ่ง (5)</label>
+                        <input type="radio" id="recommend4" name="recommendRating" value="4">
+                        <label for="recommend4">แนะนำ (4)</label>
+                        <input type="radio" id="recommend3" name="recommendRating" value="3">
+                        <label for="recommend3">อาจจะแนะนำ (3)</label>
+                        <input type="radio" id="recommend2" name="recommendRating" value="2">
+                        <label for="recommend2">ไม่แนะนำ (2)</label>
+                        <input type="radio" id="recommend1" name="recommendRating" value="1">
+                        <label for="recommend1">ไม่แนะนำอย่างยิ่ง (1)</label>
+                    </div>
+                </div>
+
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <label>5. ความพึงพอใจต่อการปฏิบัติจริง (Hands-on Practice) *</label>
+                    </div>
+                    <p class="question-desc">ประเมินกิจกรรมการเขียนโค้ด การใช้ Library และการทำโปรเจกต์จริง</p>
+                    <div class="rating-group">
+                        <input type="radio" id="practical5" name="practicalRating" value="5" required>
+                        <label for="practical5">ยอดเยี่ยม (5)</label>
+                        <input type="radio" id="practical4" name="practicalRating" value="4">
+                        <label for="practical4">ดี (4)</label>
+                        <input type="radio" id="practical3" name="practicalRating" value="3">
+                        <label for="practical3">ปานกลาง (3)</label>
+                        <input type="radio" id="practical2" name="practicalRating" value="2">
+                        <label for="practical2">ต้องปรับปรุง (2)</label>
+                        <input type="radio" id="practical1" name="practicalRating" value="1">
+                        <label for="practical1">ไม่พอใจ (1)</label>
+                    </div>
+                </div>
+
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-tools"></i>
+                        <label>6. ความเหมาะสมของเครื่องมือและ Software *</label>
+                    </div>
+                    <p class="question-desc">ประเมิน Python, OpenCV, และเครื่องมือที่ใช้ในการเรียน</p>
+                    <div class="rating-group">
+                        <input type="radio" id="tools5" name="toolsRating" value="5" required>
+                        <label for="tools5">ใช้งานง่ายมาก (5)</label>
+                        <input type="radio" id="tools4" name="toolsRating" value="4">
+                        <label for="tools4">ใช้งานง่าย (4)</label>
+                        <input type="radio" id="tools3" name="toolsRating" value="3">
+                        <label for="tools3">ปานกลาง (3)</label>
+                        <input type="radio" id="tools2" name="toolsRating" value="2">
+                        <label for="tools2">ยากใช้ (2)</label>
+                        <input type="radio" id="tools1" name="toolsRating" value="1">
+                        <label for="tools1">ยากใช้มาก (1)</label>
+                    </div>
+                </div>
+
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <label>7. ความรู้ที่ได้รับสามารถนำไปใช้งานจริงได้ *</label>
+                    </div>
+                    <p class="question-desc">ประเมินความสามารถในการนำความรู้ไปประยุกต์ใช้งานจริง</p>
+                    <div class="rating-group">
+                        <input type="radio" id="practical_use5" name="practicalUseRating" value="5" required>
+                        <label for="practical_use5">นำไปใช้ได้เลย (5)</label>
+                        <input type="radio" id="practical_use4" name="practicalUseRating" value="4">
+                        <label for="practical_use4">นำไปใช้ได้ (4)</label>
+                        <input type="radio" id="practical_use3" name="practicalUseRating" value="3">
+                        <label for="practical_use3">ต้องศึกษาเพิ่ม (3)</label>
+                        <input type="radio" id="practical_use2" name="practicalUseRating" value="2">
+                        <label for="practical_use2">ยากที่จะใช้ (2)</label>
+                        <input type="radio" id="practical_use1" name="practicalUseRating" value="1">
+                        <label for="practical_use1">ใช้ไม่ได้ (1)</label>
+                    </div>
+                </div>
+
+                <div class="form-group evaluation-item">
+                    <div class="question-header">
+                        <i class="fas fa-users"></i>
+                        <label>8. ความเหมาะสมของจำนวนผู้เรียนต่อกลุ่ม *</label>
+                    </div>
+                    <p class="question-desc">ประเมินขนาดกลุ่มและการได้รับความใส่ใจจากผู้สอน</p>
+                    <div class="rating-group">
+                        <input type="radio" id="group_size5" name="groupSizeRating" value="5" required>
+                        <label for="group_size5">เหมาะสมมาก (5)</label>
+                        <input type="radio" id="group_size4" name="groupSizeRating" value="4">
+                        <label for="group_size4">เหมาะสม (4)</label>
+                        <input type="radio" id="group_size3" name="groupSizeRating" value="3">
+                        <label for="group_size3">ปานกลาง (3)</label>
+                        <input type="radio" id="group_size2" name="groupSizeRating" value="2">
+                        <label for="group_size2">คนเยอะเกินไป (2)</label>
+                        <input type="radio" id="group_size1" name="groupSizeRating" value="1">
+                        <label for="group_size1">ไม่เหมาะสม (1)</label>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <i class="fas fa-comments"></i>
+                        <h2>ข้อเสนอแนะและความคิดเห็น</h2>
+                    </div>
+                
+                <div class="form-group">
+                    <div class="question-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <label for="improvements">9. ข้อเสนอแนะเพื่อการปรับปรุงหลักสูตร</label>
+                    </div>
+                    <textarea id="improvements" name="improvements" rows="4" 
+                              placeholder="กรุณาให้ข้อเสนอแนะเพื่อการพัฒนาหลักสูตรต่อไป..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-header">
+                        <i class="fas fa-comment-alt"></i>
+                        <label for="additionalComments">10. ความคิดเห็นเพิ่มเติม</label>
+                    </div>
+                    <textarea id="additionalComments" name="additionalComments" rows="3"
+                              placeholder="ความคิดเห็นอื่นๆ ที่ต้องการสื่อสาร เช่น หัวข้อที่ต้องการเรียนเพิ่ม, ปัญหาที่พบ, ข้อเสนอแนะอื่นๆ"></textarea>
+                </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span class="btn-text">ส่งแบบประเมินและรับใบประกาศนียบัตร</span>
+                    <span class="loading" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        กำลังดำเนินการ...
+                    </span>
+                </button>
+            </div>
+        </form>
+
+        <div id="successMessage" class="success-message" style="display: none;">
+            <h3>✅ ส่งแบบประเมินเรียบร้อยแล้ว!</h3>
+            <p>ใบประกาศนียบัตรจะถูกส่งไปยังอีเมลของคุณภายใน 5-10 นาที</p>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <h3>❌ เกิดข้อผิดพลาด</h3>
+            <p>กรุณาลองใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

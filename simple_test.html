@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Test Form</title>
+</head>
+<body>
+    <h1>Test Google Apps Script</h1>
+    
+    <form id="testForm" action="https://script.google.com/macros/s/AKfycby1TWtGED2dqHcIOqh_9w8ucgn_PLyneA6oWca05Wpohw-LM9jBD_5YSqlhpQiqa_wg/exec" method="POST" target="hiddenIframe">
+        <input name="firstName" placeholder="First Name" required><br><br>
+        <input name="lastName" placeholder="Last Name" required><br><br>
+        <input name="email" type="email" placeholder="Email" required><br><br>
+        <select name="gradeLevel" required>
+            <option value="">Select Grade</option>
+            <option value="M1">M1</option>
+            <option value="M2">M2</option>
+            <option value="M3">M3</option>
+        </select><br><br>
+        <input name="contentRating" type="number" min="1" max="5" value="5" required><br><br>
+        <input name="instructorRating" type="number" min="1" max="5" value="5" required><br><br>
+        <input name="durationRating" type="number" min="1" max="5" value="4" required><br><br>
+        <input name="recommendRating" type="number" min="1" max="5" value="4" required><br><br>
+        <input name="practicalRating" type="number" min="1" max="5" value="4" required><br><br>
+        <input name="toolsRating" type="number" min="1" max="5" value="4" required><br><br>
+        <input name="practicalUseRating" type="number" min="1" max="5" value="4" required><br><br>
+        <input name="groupSizeRating" type="number" min="1" max="5" value="4" required><br><br>
+        <textarea name="improvements" placeholder="Improvements"></textarea><br><br>
+        <textarea name="additionalComments" placeholder="Additional Comments"></textarea><br><br>
+        <input type="hidden" name="course" value="Image Processing">
+        <input type="hidden" name="submissionTime" value="">
+        <input type="hidden" name="fullName" value="">
+        <input type="hidden" name="averageRating" value="4.5">
+        
+        <button type="submit">Submit Test</button>
+    </form>
+    
+    <iframe name="hiddenIframe" style="display:none;"></iframe>
+    
+    <div id="result" style="margin-top: 20px; padding: 10px; background: #f0f0f0;">
+        Status: Ready to test
+    </div>
+    
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            // Update hidden fields
+            const firstName = document.querySelector('[name="firstName"]').value;
+            const lastName = document.querySelector('[name="lastName"]').value;
+            document.querySelector('[name="fullName"]').value = firstName + ' ' + lastName;
+            document.querySelector('[name="submissionTime"]').value = new Date().toLocaleString();
+            
+            // Show status
+            document.getElementById('result').innerHTML = 'Status: Submitting... Check Google Sheets in a few seconds.';
+            
+            // Auto-update status after submission
+            setTimeout(() => {
+                document.getElementById('result').innerHTML = 'Status: Submitted! Check Google Sheets and your email.';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
