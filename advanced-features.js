@@ -393,6 +393,11 @@ function enhanceFormValidation() {
 }
 
 function validateField(field) {
+    // Check if field exists and has a value property
+    if (!field || !field.value) {
+        return;
+    }
+
     const value = field.value.trim();
     const fieldContainer = field.closest('.form-group') || field.parentNode;
     

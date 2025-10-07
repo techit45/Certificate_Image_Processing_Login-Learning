@@ -1,0 +1,334 @@
+/* ⚡ Electrical Theme Enhancements ⚡ */
+
+/* Electric spark animation for header icons */
+@keyframes electricPulse {
+    0%, 100% {
+        text-shadow:
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 20px #FFD700,
+            0 0 40px #FFD700,
+            0 0 80px #FFD700;
+        transform: scale(1);
+    }
+    50% {
+        text-shadow:
+            0 0 2px #fff,
+            0 0 5px #fff,
+            0 0 10px #FFD700,
+            0 0 20px #FFD700,
+            0 0 40px #FFD700;
+        transform: scale(1.1);
+    }
+}
+
+/* Lightning bolt effect */
+@keyframes lightning {
+    0%, 90%, 100% { opacity: 0; }
+    91%, 95% { opacity: 1; }
+}
+
+/* Energy flow animation */
+@keyframes energyFlow {
+    0% {
+        background-position: 0% 50%;
+        filter: brightness(1);
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: brightness(1.2);
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: brightness(1);
+    }
+}
+
+/* Circuit board pattern overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.3;
+}
+
+/* Update body background to electrical theme */
+body {
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 25%, #2c5364 75%, #1a1a2e 100%);
+    background-attachment: fixed;
+    animation: energyFlow 8s ease infinite;
+    background-size: 200% 200%;
+}
+
+/* Electrical header */
+header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 70%, #533483 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add electrical circuit pattern to header */
+header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255, 215, 0, 0.1) 80px, rgba(255, 215, 0, 0.1) 81px),
+        repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255, 215, 0, 0.1) 80px, rgba(255, 215, 0, 0.1) 81px);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Animated electrical icons */
+.header-icon i {
+    animation: electricPulse 2s ease-in-out infinite;
+    color: #FFD700;
+}
+
+.header-icon i:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.header-icon i:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.header-icon i:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+/* Lightning effect for header */
+.header-icon::before {
+    content: '⚡';
+    position: absolute;
+    font-size: 3em;
+    color: rgba(255, 215, 0, 0.3);
+    animation: lightning 3s infinite;
+    pointer-events: none;
+    left: 10%;
+    top: 20%;
+}
+
+.header-icon::after {
+    content: '⚡';
+    position: absolute;
+    font-size: 3em;
+    color: rgba(255, 215, 0, 0.3);
+    animation: lightning 3s infinite 1.5s;
+    pointer-events: none;
+    right: 10%;
+    top: 40%;
+}
+
+/* Glowing container border */
+.container {
+    box-shadow:
+        0 0 20px rgba(255, 215, 0, 0.3),
+        0 25px 50px rgba(30, 60, 114, 0.15),
+        0 0 0 1px rgba(255, 215, 0, 0.2);
+}
+
+.container::before {
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+    animation: energyFlow 3s linear infinite;
+    background-size: 200% 100%;
+}
+
+/* Electric submit button */
+.submit-btn {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+    box-shadow:
+        0 4px 15px rgba(255, 215, 0, 0.4),
+        0 0 20px rgba(255, 165, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: electricSweep 2s linear infinite;
+}
+
+@keyframes electricSweep {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #FFE44D 0%, #FFB84D 50%, #FF9A4D 100%);
+    box-shadow:
+        0 6px 20px rgba(255, 215, 0, 0.6),
+        0 0 30px rgba(255, 165, 0, 0.5);
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Electrical radio button styling */
+input[type="radio"]:checked + label {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #1a1a2e;
+    box-shadow:
+        0 0 10px rgba(255, 215, 0, 0.5),
+        0 4px 15px rgba(255, 165, 0, 0.3);
+    font-weight: bold;
+}
+
+/* Power indicator dots */
+.section-header::before {
+    content: '⚡';
+    margin-right: 10px;
+    color: #FFD700;
+    animation: electricPulse 1.5s ease-in-out infinite;
+}
+
+/* Voltage meter effect on progress */
+.evaluation-item.completed {
+    border-left: 4px solid #FFD700;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.05), transparent);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+/* Add power-on effect */
+@keyframes powerOn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.container {
+    animation: powerOn 0.8s ease-out;
+}
+
+/* Electrical current flow on input focus */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #FFD700;
+    box-shadow:
+        0 0 0 3px rgba(255, 215, 0, 0.2),
+        0 0 15px rgba(255, 215, 0, 0.3);
+    outline: none;
+}
+
+/* Sparking effect on hover for interactive elements */
+.form-group:hover {
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.02), transparent);
+}
+
+/* Energy particles floating effect */
+@keyframes floatParticle {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+    }
+}
+
+/* Add floating particles */
+body::before {
+    content: '⚡';
+    position: fixed;
+    bottom: -50px;
+    left: 10%;
+    font-size: 20px;
+    color: rgba(255, 215, 0, 0.3);
+    animation: floatParticle 8s linear infinite;
+    pointer-events: none;
+}
+
+/* Success message electrical theme */
+.success-message {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.success-message h3 {
+    color: #FF8C00;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Loading spinner electrical effect */
+.fa-spinner {
+    color: #FFD700;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+}
+
+/* Grade level colored indicators - electrical theme */
+#gradeLevel {
+    transition: all 0.3s ease;
+}
+
+#gradeLevel:focus {
+    box-shadow:
+        0 0 0 3px rgba(255, 215, 0, 0.2),
+        0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Electrical waveform animation for subtitle */
+.subtitle {
+    position: relative;
+    display: inline-block;
+}
+
+.subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #FFD700, transparent);
+    animation: electricWave 2s ease-in-out infinite;
+}
+
+@keyframes electricWave {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scaleX(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}

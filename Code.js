@@ -2,9 +2,9 @@
 // Deploy this as a Web App with permissions for anyone to execute
 
 // Configuration - Update these with your actual IDs
-const SPREADSHEET_ID = '1GUrL1nOCPGo_M7rLFDud-ZRYWry15FFlSMMAEMT1MiU';
-const CERTIFICATE_TEMPLATE_ID = '1a1EXoY3cx0MIDN2Z-KiAc39NI4AKCk6hyOpp8xinKeg';
-const CERTIFICATE_FOLDER_ID = '1iNooK4frWpkrfhVD3D2UDyPrWA44ydg5'; // Main folder to save certificates
+const SPREADSHEET_ID = '1tDrAJOzA3QbxDoXvWNEIS-w7A61TgQoQ1zExNQQW_6o';
+const CERTIFICATE_TEMPLATE_ID = '1eQHIIkQ7gCePcwRDpXOmC9ExOp69oTo7LLulwfV_mqk';
+const CERTIFICATE_FOLDER_ID = '1g9RB1NDG2Yvgx7dvGu-_9vMBpPJnV66m'; // Main folder to save certificates
 
 // Grade level folder mapping - these will be created automatically if they don't exist
 const GRADE_FOLDERS = {
@@ -45,6 +45,8 @@ function doPost(e) {
         toolsRating: e.parameter.toolsRating,
         practicalUseRating: e.parameter.practicalUseRating,
         groupSizeRating: e.parameter.groupSizeRating,
+        courseContinuation: e.parameter.courseContinuation,
+        notContinueReason: e.parameter.notContinueReason || '',
         improvements: e.parameter.improvements || '',
         additionalComments: e.parameter.additionalComments || '',
         submissionTime: e.parameter.submissionTime,
@@ -140,6 +142,8 @@ function doGet(e) {
         toolsRating: e.parameter.toolsRating,
         practicalUseRating: e.parameter.practicalUseRating,
         groupSizeRating: e.parameter.groupSizeRating,
+        courseContinuation: e.parameter.courseContinuation,
+        notContinueReason: e.parameter.notContinueReason || '',
         improvements: e.parameter.improvements || '',
         additionalComments: e.parameter.additionalComments || '',
         submissionTime: e.parameter.submissionTime,
@@ -238,46 +242,70 @@ function doGet(e) {
 function saveToGoogleSheets(data) {
   try {
     const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
-    
-    // Check if headers exist, if not create them
+
+    const expectedHeaders = [
+      'Timestamp',
+      'First Name',
+      'Last Name',
+      'Full Name',
+      'Email',
+      'Grade Level',
+      'Course',
+      'Content Rating',
+      'Instructor Rating',
+      'Duration Rating',
+      'Recommend Rating',
+      'Practical Rating',
+      'Tools Rating',
+      'Practical Use Rating',
+      'Group Size Rating',
+      'Course Continuation',
+      'Not Continue Reason',
+      'Overall Average Rating',
+      'Core Average Rating',
+      'Practical Average Rating',
+      'Satisfaction Level',
+      'Recommendation Type',
+      'Strongest Aspect',
+      'Improvement Areas',
+      'Participant Type',
+      'Improvements',
+      'Additional Comments',
+      'Certificate Generated',
+      'Certificate Sent',
+      'Certificate File Path'
+    ];
+
+    // Check if headers exist and match expected headers
     if (sheet.getLastRow() === 0) {
-      const headers = [
-        'Timestamp',
-        'First Name',
-        'Last Name', 
-        'Full Name',
-        'Email',
-        'Grade Level',
-        'Course',
-        'Content Rating',
-        'Instructor Rating',
-        'Duration Rating',
-        'Recommend Rating',
-        'Practical Rating',
-        'Tools Rating',
-        'Practical Use Rating',
-        'Group Size Rating',
-        'Overall Average Rating',
-        'Core Average Rating',
-        'Practical Average Rating',
-        'Satisfaction Level',
-        'Recommendation Type',
-        'Strongest Aspect',
-        'Improvement Areas',
-        'Participant Type',
-        'Improvements',
-        'Additional Comments',
-        'Certificate Generated',
-        'Certificate Sent',
-        'Certificate File Path'
-      ];
-      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-      
+      // Sheet is empty, create headers
+      sheet.getRange(1, 1, 1, expectedHeaders.length).setValues([expectedHeaders]);
+
       // Format header row
-      const headerRange = sheet.getRange(1, 1, 1, headers.length);
+      const headerRange = sheet.getRange(1, 1, 1, expectedHeaders.length);
       headerRange.setBackground('#4facfe');
       headerRange.setFontColor('white');
       headerRange.setFontWeight('bold');
+    } else {
+      // Check if headers need updating
+      const currentHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+      // If number of columns doesn't match, update headers
+      if (currentHeaders.length !== expectedHeaders.length) {
+        console.log('Updating headers to match new format...');
+
+        // Clear old headers
+        sheet.getRange(1, 1, 1, currentHeaders.length).clearContent();
+
+        // Set new headers
+        sheet.getRange(1, 1, 1, expectedHeaders.length).setValues([expectedHeaders]);
+
+        // Format header row
+        const headerRange = sheet.getRange(1, 1, 1, expectedHeaders.length);
+        headerRange.setBackground('#4facfe');
+        headerRange.setFontColor('white');
+        headerRange.setFontWeight('bold');
+      }
     }
     
     // Calculate different types of average ratings with detailed analytics
@@ -325,6 +353,8 @@ function saveToGoogleSheets(data) {
       data.toolsRating,
       data.practicalUseRating,
       data.groupSizeRating,
+      data.courseContinuation || 'N/A',
+      data.notContinueReason || 'N/A',
       overallAverageRating,
       coreAverageRating,
       practicalAverageRating,
@@ -583,7 +613,7 @@ function sendCertificateEmail(data, certificateBlob) {
 ขอบคุณสำหรับการประเมินและข้อเสนอแนะที่มีค่า
 
 โดย Login Learning
-Color Segmentation & Computer Vision
+Power Electronics & Circuit Design
     `;
     
     // Send email with HTML formatting
@@ -808,7 +838,7 @@ function createEmailTemplate(data) {
         
         <div class="footer">
             <div class="footer-brand">โดย Login Learning</div>
-            <div class="footer-subtitle">Color Segmentation & Computer Vision</div>
+            <div class="footer-subtitle">Power Electronics & Circuit Design</div>
         </div>
     </div>
 </body>
@@ -824,8 +854,8 @@ function updateCertificateStatus(data, certificateGenerated, emailSent) {
     
     // Find the row with matching email (assuming it's the most recent entry)
     const emailCol = 5; // Column E (Email)
-    const certGenCol = 21; // Column U (Certificate Generated) - adjusted for new columns
-    const certSentCol = 22; // Column V (Certificate Sent) - adjusted for new columns
+    const certGenCol = 28; // Column AB (Certificate Generated) - adjusted for new columns
+    const certSentCol = 29; // Column AC (Certificate Sent) - adjusted for new columns
     
     for (let row = lastRow; row >= 2; row--) {
       const emailInSheet = sheet.getRange(row, emailCol).getValue();
@@ -850,7 +880,7 @@ function updateCertificateFilePath(data, filePath) {
     
     // Find the row with matching email (assuming it's the most recent entry)
     const emailCol = 5; // Column E (Email)
-    const filePathCol = 23; // Column W (Certificate File Path)
+    const filePathCol = 30; // Column AD (Certificate File Path)
     
     for (let row = lastRow; row >= 2; row--) {
       const emailInSheet = sheet.getRange(row, emailCol).getValue();
@@ -874,7 +904,7 @@ function testCertificateGeneration() {
     fullName: 'John Doe',
     email: 'test@example.com',
     gradeLevel: 'M1',
-    course: 'Image Processing',
+    course: 'Power Supply Design & Analysis',
     contentRating: '5',
     instructorRating: '5',
     durationRating: '4',
@@ -1099,7 +1129,7 @@ function testFormSubmission() {
     fullName: 'John Doe',
     email: 'test@example.com',
     gradeLevel: 'M3',
-    course: 'Image Processing',
+    course: 'Power Supply Design & Analysis',
     contentRating: '5',
     instructorRating: '5',
     durationRating: '4',

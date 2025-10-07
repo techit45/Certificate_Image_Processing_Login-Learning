@@ -1,5 +1,5 @@
 // Configuration - Replace with your actual Google Apps Script Web App URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1TWtGED2dqHcIOqh_9w8ucgn_PLyneA6oWca05Wpohw-LM9jBD_5YSqlhpQiqa_wg/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxoK9jCqNYiEBoc3fDuurTzoues5k5rpczkZZcvH-sOXGHRxyzF-4vpYJtnrDwl6LU/exec';
 
 // Add CSS for enhanced form validation
 const style = document.createElement('style');
@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const errorMessage = document.getElementById('errorMessage');
 
     form.addEventListener('submit', handleFormSubmit);
+
+    // Handle conditional question for course continuation
+    initializeCourseContinuationLogic();
 });
 
 async function handleFormSubmit(e) {
@@ -104,7 +107,7 @@ async function handleFormSubmit(e) {
 function collectFormData() {
     const form = document.getElementById('evaluationForm');
     const formData = new FormData(form);
-    
+
     const data = {
         firstName: formData.get('firstName')?.trim(),
         lastName: formData.get('lastName')?.trim(),
@@ -118,9 +121,11 @@ function collectFormData() {
         toolsRating: formData.get('toolsRating'),
         practicalUseRating: formData.get('practicalUseRating'),
         groupSizeRating: formData.get('groupSizeRating'),
+        courseContinuation: formData.get('courseContinuation'),
+        notContinueReason: formData.get('notContinueReason')?.trim() || '',
         improvements: formData.get('improvements')?.trim() || '',
         additionalComments: formData.get('additionalComments')?.trim() || '',
-        submissionTime: new Date().toLocaleString('th-TH', { 
+        submissionTime: new Date().toLocaleString('th-TH', {
             timeZone: 'Asia/Bangkok',
             year: 'numeric',
             month: '2-digit',
@@ -129,51 +134,60 @@ function collectFormData() {
             minute: '2-digit',
             second: '2-digit'
         }),
-        course: 'Image Processing'
+        course: 'Power Supply Design & Analysis'
     };
-    
+
     // Combine first and last name for certificate
     data.fullName = `${data.firstName} ${data.lastName}`;
-    
+
     return data;
 }
 
 function validateFormData(data) {
     // Required fields validation
     const requiredFields = [
-        'firstName', 
-        'lastName', 
-        'email', 
+        'firstName',
+        'lastName',
+        'email',
         'gradeLevel',
-        'contentRating', 
-        'instructorRating', 
-        'durationRating', 
+        'contentRating',
+        'instructorRating',
+        'durationRating',
         'recommendRating',
         'practicalRating',
         'toolsRating',
         'practicalUseRating',
-        'groupSizeRating'
+        'groupSizeRating',
+        'courseContinuation'
     ];
-    
+
     for (const field of requiredFields) {
         if (!data[field]) {
             return false;
         }
     }
-    
+
+    // Validate reason if "ไม่ต่อ" is selected
+    if (data.courseContinuation === 'ไม่ต่อ') {
+        if (!data.notContinueReason || data.notContinueReason.trim().length === 0) {
+            alert('กรุณาระบุเหตุผลที่ไม่ต่อคอร์ส');
+            return false;
+        }
+    }
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
         return false;
     }
-    
+
     // Name validation (English characters only)
     const nameRegex = /^[A-Za-z\s-'.]+$/;
     if (!nameRegex.test(data.firstName) || !nameRegex.test(data.lastName)) {
         alert('กรุณากรอกชื่อและนามสกุลเป็นภาษาอังกฤษเท่านั้น');
         return false;
     }
-    
+
     return true;
 }
 
@@ -427,8 +441,34 @@ function calculateAverageRating(data) {
         parseInt(data.practicalUseRating),
         parseInt(data.groupSizeRating)
     ].filter(rating => !isNaN(rating));
-    
+
     if (ratings.length === 0) return 0;
-    
+
     return (ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length).toFixed(2);
+}
+
+// Initialize course continuation conditional logic
+function initializeCourseContinuationLogic() {
+    const courseRadios = document.querySelectorAll('input[name="courseContinuation"]');
+    const reasonSection = document.getElementById('reasonSection');
+    const reasonTextarea = document.getElementById('notContinueReason');
+
+    courseRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'ไม่ต่อ') {
+                // Show reason section and make it required
+                reasonSection.style.display = 'block';
+                reasonTextarea.setAttribute('required', 'required');
+                // Smooth scroll to reason section
+                setTimeout(() => {
+                    reasonSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            } else {
+                // Hide reason section and remove required
+                reasonSection.style.display = 'none';
+                reasonTextarea.removeAttribute('required');
+                reasonTextarea.value = ''; // Clear the value
+            }
+        });
+    });
 }

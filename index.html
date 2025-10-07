@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบประเมินหลักสูตร Image Processing</title>
+    <title>แบบประเมินหลักสูตร Power Supply Design & Analysis</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="enhanced-features.css">
+    <link rel="stylesheet" href="electrical-theme.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
             <div class="header-icon">
-                <i class="fas fa-camera"></i>
-                <i class="fas fa-microchip"></i>
-                <i class="fas fa-eye"></i>
+                <i class="fas fa-bolt"></i>
+                <i class="fas fa-plug"></i>
+                <i class="fas fa-battery-full"></i>
             </div>
-            <h1>แบบประเมินหลักสูตร Image Processing</h1>
-            <p class="subtitle">Workshop: Color Segmentation & Computer Vision</p>
+            <h1>แบบประเมินหลักสูตร Power Supply Design & Analysis</h1>
+            <p class="subtitle">Workshop: Power Electronics & Circuit Design</p>
             <p>กรุณากรอกข้อมูลและประเมินหลักสูตรเพื่อรับใบประกาศนียบัตร</p>
         </header>
 
@@ -151,10 +153,10 @@
 
                 <div class="form-group evaluation-item">
                     <div class="question-header">
-                        <i class="fas fa-laptop-code"></i>
+                        <i class="fas fa-screwdriver-wrench"></i>
                         <label>5. ความพึงพอใจต่อการปฏิบัติจริง (Hands-on Practice) *</label>
                     </div>
-                    <p class="question-desc">ประเมินกิจกรรมการเขียนโค้ด การใช้ Library และการทำโปรเจกต์จริง</p>
+                    <p class="question-desc">ประเมินกิจกรรมการออกแบบวงจร การทดลอง และการประกอบ Power Supply จริง</p>
                     <div class="rating-group">
                         <input type="radio" id="practical5" name="practicalRating" value="5" required>
                         <label for="practical5">ยอดเยี่ยม (5)</label>
@@ -174,7 +176,7 @@
                         <i class="fas fa-tools"></i>
                         <label>6. ความเหมาะสมของเครื่องมือและ Software *</label>
                     </div>
-                    <p class="question-desc">ประเมิน Python, OpenCV, และเครื่องมือที่ใช้ในการเรียน</p>
+                    <p class="question-desc">ประเมิน Multimeter, Oscilloscope, Simulation Software และเครื่องมือที่ใช้ในการเรียน</p>
                     <div class="rating-group">
                         <input type="radio" id="tools5" name="toolsRating" value="5" required>
                         <label for="tools5">ใช้งานง่ายมาก (5)</label>
@@ -228,6 +230,78 @@
                         <label for="group_size1">ไม่เหมาะสม (1)</label>
                     </div>
                 </div>
+            </div>
+
+            <!-- Course Continuation Section -->
+            <div class="section course-continuation-section">
+                <div class="section-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h2>สนใจเรียนต่อหรือไม่?</h2>
+                </div>
+
+                <div class="form-group evaluation-item course-selection">
+                    <div class="question-header">
+                        <i class="fas fa-arrow-right"></i>
+                        <label>9. คุณสนใจที่จะเรียนคอร์สต่อหรือไม่? *</label>
+                    </div>
+                    <p class="question-desc">เลือกคอร์สที่คุณสนใจจะเรียนต่อ หรือเลือก "ไม่ต่อ" หากไม่สนใจ</p>
+
+                    <div class="course-options">
+                        <div class="course-option">
+                            <input type="radio" id="course_junior" name="courseContinuation" value="Junior" required>
+                            <label for="course_junior" class="course-card">
+                                <div class="course-image-wrapper">
+                                    <img src="junior.jpg" alt="Junior Course - โครงงานสำหรับม.ต้น" class="course-image">
+                                </div>
+                                <div class="course-info">
+                                    <h3>Junior Course</h3>
+                                    <p>คอร์สโครงงานสำหรับม.ต้น</p>
+                                    <span class="course-badge">สำหรับ M1-M3</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="course-option">
+                            <input type="radio" id="course_senior" name="courseContinuation" value="Senior" required>
+                            <label for="course_senior" class="course-card senior-course">
+                                <div class="course-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="course-info">
+                                    <h3>Senior Course</h3>
+                                    <p>โครงงานปลายเปิดที่คิดเอง</p>
+                                    <p>พร้อมโอกาสแข่งขันที่ลาดกระบัง</p>
+                                    <span class="course-badge senior">สำหรับนักเรียนเก่า M4-M6</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="course-option">
+                            <input type="radio" id="course_none" name="courseContinuation" value="ไม่ต่อ" required>
+                            <label for="course_none" class="course-card no-course">
+                                <div class="course-icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div class="course-info">
+                                    <h3>ไม่สนใจต่อคอร์ส</h3>
+                                    <p>ขอบคุณสำหรับการเรียนในคอร์สนี้</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditional Question: Reason for not continuing -->
+                <div class="form-group evaluation-item conditional-question" id="reasonSection" style="display: none;">
+                    <div class="question-header">
+                        <i class="fas fa-comment-dots"></i>
+                        <label for="notContinueReason">10. เหตุผลที่ไม่ต่อคอร์ส *</label>
+                    </div>
+                    <p class="question-desc">กรุณาแชร์เหตุผลของคุณเพื่อช่วยให้เราปรับปรุงคอร์สในอนาคต</p>
+                    <textarea id="notContinueReason" name="notContinueReason" rows="4"
+                              placeholder="เช่น ไม่มีเวลา, ค่าเล่าเรียนสูงเกินไป, เนื้อหาไม่ตรงกับความสนใจ, ฯลฯ"
+                              class="conditional-textarea"></textarea>
+                </div>
 
                 <div class="section">
                     <div class="section-header">
@@ -238,16 +312,16 @@
                 <div class="form-group">
                     <div class="question-header">
                         <i class="fas fa-lightbulb"></i>
-                        <label for="improvements">9. ข้อเสนอแนะเพื่อการปรับปรุงหลักสูตร</label>
+                        <label for="improvements">11. ข้อเสนอแนะเพื่อการปรับปรุงหลักสูตร</label>
                     </div>
-                    <textarea id="improvements" name="improvements" rows="4" 
+                    <textarea id="improvements" name="improvements" rows="4"
                               placeholder="กรุณาให้ข้อเสนอแนะเพื่อการพัฒนาหลักสูตรต่อไป..."></textarea>
                 </div>
 
                 <div class="form-group">
                     <div class="question-header">
                         <i class="fas fa-comment-alt"></i>
-                        <label for="additionalComments">10. ความคิดเห็นเพิ่มเติม</label>
+                        <label for="additionalComments">12. ความคิดเห็นเพิ่มเติม</label>
                     </div>
                     <textarea id="additionalComments" name="additionalComments" rows="3"
                               placeholder="ความคิดเห็นอื่นๆ ที่ต้องการสื่อสาร เช่น หัวข้อที่ต้องการเรียนเพิ่ม, ปัญหาที่พบ, ข้อเสนอแนะอื่นๆ"></textarea>

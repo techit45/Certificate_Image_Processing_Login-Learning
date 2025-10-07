@@ -1,14 +1,14 @@
-# Image Processing Course Certificate System
+# Power Supply Design & Analysis Certificate System
 
-## 🎯 ระบบประเมินและออกใบประกาศนียบัตรหลักสูตร Image Processing
+## 🎯 ระบบประเมินและออกใบประกาศนียบัตรหลักสูตร Power Supply Design & Analysis
 
 ### ✨ Features
-- 📝 แบบฟอร์มประเมิน 8 หัวข้อ
+- ⚡ แบบฟอร์มประเมิน 8 หัวข้อ
 - 📄 สร้างใบประกาศนียบัตร PDF อัตโนมัติ
 - 📧 ส่งอีเมลพร้อมใบประกาศนียบัตร
 - 📊 บันทึกข้อมูลใน Google Sheets
 - 📁 จัดเก็บไฟล์แยกตามระดับชั้น
-- 🎨 ดีไซน์สวยงาม responsive
+- 🔌 ดีไซน์ธีมไฟฟ้า responsive
 
 ### 🚀 การใช้งาน
 
@@ -16,7 +16,7 @@
 **GitHub Pages:** https://techit45.github.io/Certificate_Image_Processing_Login-Learning
 
 #### Google Apps Script URL
-**Backend:** https://script.google.com/macros/s/AKfycby1TWtGED2dqHcIOqh_9w8ucgn_PLyneA6oWca05Wpohw-LM9jBD_5YSqlhpQiqa_wg/exec
+**Backend:** https://script.google.com/macros/s/AKfycbxoK9jCqNYiEBoc3fDuurTzoues5k5rpczkZZcvH-sOXGHRxyzF-4vpYJtnrDwl6LU/exec
 
 ### 📋 ขั้นตอนการใช้งาน
 1. เปิดเว็บไซต์
@@ -39,9 +39,9 @@
 - คะแนนประเมินเฉลี่ย
 
 ### 🔧 Configuration
-- Google Sheets ID: `1GUrL1nOCPGo_M7rLFDud-ZRYWry15FFlSMMAEMT1MiU`
-- Certificate Template: `1a1EXoY3cx0MIDN2Z-KiAc39NI4AKCk6hyOpp8xinKeg`
-- Drive Folder: `1iNooK4frWpkrfhVD3D2UDyPrWA44ydg5`
+- Google Sheets ID: `1tDrAJOzA3QbxDoXvWNEIS-w7A61TgQoQ1zExNQQW_6o`
+- Certificate Template: `1eQHIIkQ7gCePcwRDpXOmC9ExOp69oTo7LLulwfV_mqk`
+- Drive Folder: `1g9RB1NDG2Yvgx7dvGu-_9vMBpPJnV66m`
 
 ### 📝 Documentation
 - [SETUP_INSTRUCTIONS.md](SETUP_INSTRUCTIONS.md)
@@ -49,8 +49,8 @@
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 
 ### 👥 Credits
-**โดย:** Login Learning  
-**หลักสูตร:** Color Segmentation & Computer Vision
+**โดย:** Login Learning
+**หลักสูตร:** Power Electronics & Circuit Design
 
 ---
 🤖 Generated with [Claude Code](https://claude.ai/code)
